@@ -68,6 +68,9 @@ git push -u origin main
 
 第一次 push 会弹出浏览器让你登录 GitHub（Git for Windows 自带的凭据管理器负责这一步）。
 
+> 想让它看起来像一个「有版本的开源项目」，可以顺手发一个 Release——**不是必须的**，
+> 1 分钟、全程网页，做法见第 8 节。
+
 推上去之后，仓库首页就是 `README.md` 的内容。**这份 `PUBLISHING.md` 也会公开可见**，
 如果你不想让别人看到，删掉它再推，或者把它放进 `.gitignore`。
 
@@ -150,3 +153,34 @@ npm publish        # 无需 --access public，因为不是 scope 包
 2. **别把 `"private": true` 加回来**：它会让 `npm publish` 直接失败。
 3. **别随手把 `engines.dsh` 放宽成 `*`**：它是你的兼容性护栏，也是"我只测到这个版本"的
    公开声明。要放宽，先在对应版本的 DSH 上真跑通再改。
+
+## 8. Releases 要不要做？（可选，但建议做一次）
+
+**不做也完全能用。** DSH 自带的插件管理器只认 npm 包名和 git 地址（`github:owner/repo`、
+`git+https://…`、本地路径），安装时直接用 pnpm 拉仓库，**全程不看 GitHub Releases**——
+我在它的源码（`@deepseek-ai/dsh-plugin-manager`）里没有找到任何 Releases / Tags API 的调用。
+
+但花一分钟发一次是值得的：
+
+1. **仓库右侧会显示版本号**，别人一眼看出这是个"有版本的东西"，而不是随手扔的仓库。
+2. **它会生成一个 git 标签**（`v0.1.0`），用户可以用它钉住版本：
+   `dsh plugin --profile <profile> add github:Afufuafa/dsh-standalone-settings#v0.1.0`
+3. **第三方市场 / 更新检查器一般靠版本标签判断你有没有出新版**。你 profile 里那份
+   `gro.ngilp-hsd-versions.json`（由 dsh-plugin.org 的市场写的）记录的就是 `v1.1.0` 这种
+   `v` 前缀版本号——这类工具通常就是读 Release / 标签。
+
+怎么做（全程网页，不用命令行）：
+
+1. 打开 `https://github.com/Afufuafa/dsh-standalone-settings/releases/new`
+   （或仓库首页右侧 **Releases** → **Create a new release**）
+2. **Choose a tag** 填 `v0.1.0`，然后点 **Create new tag on publish**
+   （标签名对应 `package.json` 里的 `version: 0.1.0`；`v` 前缀是这个生态的惯例）
+3. **Target** 保持 `main`
+4. **Release title** 填 `v0.1.0`
+5. **Describe this release** 里把 `CHANGELOG.md` 那一段贴进去
+6. **不需要上传任何文件**：这是纯 JS 插件，没有编译产物；GitHub 会自动附带
+   `Source code (zip)` 和 `Source code (tar.gz)`
+7. 点 **Publish release**
+
+以后每次发新版：先改 `package.json` 的 `version`（例如 `0.1.1`），提交推送，再到
+`/releases/new` 发一个标签为 `v0.1.1` 的 Release。
