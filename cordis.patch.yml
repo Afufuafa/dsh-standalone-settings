@@ -1,0 +1,8 @@
+# One Host row; the Client half renders the standalone Settings button.
+#
+# `name` must match package.json's `name` exactly. A mismatch silently drops the
+# Client half: the Host row still loads (the loader resolves the package), while the
+# button simply never mounts.
+- insert:
+    - id: dsh-standalone-settings
+      name: 'dsh-standalone-settings'

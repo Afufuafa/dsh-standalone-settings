@@ -1,0 +1,60 @@
+{
+  "name": "dsh-standalone-settings",
+  "version": "0.1.0",
+  "description": "把 DSH 桌面版的设置入口从账号菜单里独立出来：在侧边栏底部的账号按钮右侧固定一个独立的设置按钮。",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "deepseek",
+    "plugin",
+    "bundle",
+    "settings",
+    "sidebar",
+    "desktop"
+  ],
+  "license": "MIT",
+  "author": "Afufuafa",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Afufuafa/dsh-standalone-settings.git"
+  },
+  "homepage": "https://github.com/Afufuafa/dsh-standalone-settings#readme",
+  "bugs": {
+    "url": "https://github.com/Afufuafa/dsh-standalone-settings/issues"
+  },
+  "engines": {
+    "node": ">=20",
+    "dsh": ">=0.2.0-rc.1 <0.3.0-0"
+  },
+  "icon": "./icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./icon.svg": "./icon.svg",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "README.md",
+    "README.en.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ]
+    }
+  }
+}
