@@ -22,6 +22,10 @@
  * `{ name, id, order, label, locale, inject }`), the injected `locale` and
  * `shortcuts` services, and the `settings.open` command in the shortcuts catalog.
  * No Harness Client package is imported; no DOM outside this component is written.
+ *
+ * AI-generated and published as-is: the human who asked for this feature can maintain neither the
+ * code nor its adaptation to future DSH versions. See the hand-written note at the top of README.md.
+ * Forks and adaptation PRs are welcome.
  */
 window.__ModuleLoader__.load({
   id: 'dsh-standalone-settings',

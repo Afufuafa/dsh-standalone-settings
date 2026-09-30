@@ -13,3 +13,4 @@
 - 按钮显示时按快捷键的无障碍组合隐藏账号菜单里重复的「设置」行
 - 全部样式使用主题 token（`--dsw-alias-*`），跟随明暗主题与界面语言
 - 只用 JS + 主题 token，不 import 任何 Harness Client 包
+- README 顶部增加作者**手写说明**：插件动机、由 ds v4.1 flash 全权生成、不保证后续跟进、欢迎 issue/PR/fork

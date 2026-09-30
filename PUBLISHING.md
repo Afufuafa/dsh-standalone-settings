@@ -71,6 +71,39 @@ git push -u origin main
 推上去之后，仓库首页就是 `README.md` 的内容。**这份 `PUBLISHING.md` 也会公开可见**，
 如果你不想让别人看到，删掉它再推，或者把它放进 `.gitignore`。
 
+### 如果 `git push` 报 "Failed to connect to github.com port 443"
+
+这是网络层的问题，不是 git 或账号的问题（典型症状：卡 20 秒后 `Could not connect to server`）。
+**关键是：浏览器能用系统代理，但终端里的 git 不读系统代理，它是直连的。**
+
+先确认代理端口，再把它配给 git（下面用 `7897` 举例，换成你自己代理客户端的端口）：
+
+```powershell
+# 1) 看系统代理指向哪个端口（浏览器用的就是它）
+Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' |
+  Select-Object ProxyEnable, ProxyServer
+
+# 2) 用 curl 实测该代理能不能访问 github.com（返回 HTTP 200 就是能）
+curl.exe -x http://127.0.0.1:7897 -sS -o NUL -w "HTTP %{http_code}`n" https://github.com
+
+# 3) 配给 git，并用公开仓库验证（返回一串 SHA 即成功，不需要登录）
+git config --global http.proxy  http://127.0.0.1:7897
+git config --global https.proxy http://127.0.0.1:7897
+git ls-remote https://github.com/git/git.git HEAD
+
+# 4) 重新推送
+git push -u origin main
+```
+
+注意两点：
+
+- **代理客户端必须开着**，否则 git 会因为连不上代理而失败（报错会变成连 `127.0.0.1:7897` 失败）。
+- 想撤销这个设置：`git config --global --unset http.proxy` 和 `--unset https.proxy`。
+
+如果实在没有可用的代理，还有两条退路：`ssh.github.com:443` 在很多网络下是通的（需要改用
+SSH 方式推送，并在 GitHub 添加公钥）；或者把仓库放到 Gitee，`dsh plugin` 接受任意 git 地址，
+只是社区用户大多从 GitHub 安装。
+
 ## 3. （可选）发布到 npm
 
 包名 `dsh-standalone-settings` 目前**没有被占用**（发布前可以自己去

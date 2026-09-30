@@ -1,7 +1,7 @@
 {
   "name": "dsh-standalone-settings",
   "version": "0.1.0",
-  "description": "把 DSH 桌面版的设置入口从账号菜单里独立出来：在侧边栏底部的账号按钮右侧固定一个独立的设置按钮。",
+  "description": "把 DSH 桌面版的设置入口从账号菜单里独立出来：在侧边栏底部的账号按钮右侧固定一个独立的设置按钮。（完全由 AI 生成，不保证后续更新与版本适配）",
   "keywords": [
     "dsh",
     "deepseek-harness",

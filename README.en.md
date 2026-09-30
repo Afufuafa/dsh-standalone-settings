@@ -10,6 +10,16 @@ its own button at the **trailing end of the account/user row** in the sidebar fo
 - Touches **no host file**: it contributes through the official slot extension points only, and
   uninstalls cleanly
 
+## A note from the human (yes, a human wrote this part)
+
+I'm lazy, and the official DSH keeps Settings buried deep — I didn't want to go through the username
+into the second-level menu every time. So I made a wish to an AI for a separate settings button, the
+kind the community version has.
+
+I uploaded it hoping that people with the same need won't waste tokens on it again. But since my only
+coding ability comes from a first-year C++ course, this plugin is entirely ds v4.1 flash's work. I
+can't promise to keep following it up. Issues / PRs / forks are welcome.
+
 ## Why
 
 DSH desktop composes the account launcher (`@deepseek-ai/dsh-client-ui-settings-account`) into the
@@ -101,14 +111,11 @@ crashes and the Settings entry never disappears.
 
 ## Support
 
-Provided **as-is**. The author does **not** promise fixes, follow-up adaptation, or support.
+Stance is in the note above. Practical side:
 
-That is deliberate: it is roughly 200 lines of plain JavaScript and it fails gracefully. If you want
-it to keep working:
-
-- **Fork it.** MIT licensed — modify, rename and republish freely, no permission needed.
-- **Send a PR.** A fixed version is welcome; merging it is best-effort.
-- **Fix it yourself.** Edit `client.js`, refresh the page. No build step, no dependencies.
+- Want it different? Fork it. Rename it, republish it, no permission needed.
+- Fixed something? A PR is welcome, especially one that adapts it to a newer DSH.
+- Fixing it yourself is easy: edit `client.js`, refresh the page. No build step, no dependencies.
 
 ## License
 
